@@ -13,6 +13,7 @@ source:
   patches:
     - 0001-Add_missing_m4_macros.patch
     - 0002-Fix_CXX_LIB_PATH_macro.patch
+    - 0003-Pass_no_undefined_libtool.patch  # [win]
 
 build:
   number: 5
