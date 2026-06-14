@@ -1,6 +1,6 @@
 {% set name = "ccfits" %}
 {% set version = "2.6" %}
-{% set sha256 = "c8395e80379df4e2a63b0890166fb47be4b96dff977214e7ed10ea9d3e9e9a9e" %}
+{% set sha256 = "2bb439db67e537d0671166ad4d522290859e8e56c2f495c76faa97bc91b28612" %}
 
 package:
   name: {{ name|lower }}
@@ -15,16 +15,16 @@ source:
     - 0002-Fix_CXX_LIB_PATH_macro.patch
 
 build:
-  number: 4
-  skip: true  # [win]
+  number: 5
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - automake
-    - autoconf
-    - libtool
+    - automake  # [not win]
+    - autoconf  # [not win]
+    - libtool  # [not win]
+    - autotools_clang_conda  # [win]
     - make
   host:
     - cfitsio
@@ -35,7 +35,10 @@ test:
   commands:
     - test -f ${CONDA_PREFIX}/lib/libCCfits.so  # [linux]
     - test -f ${CONDA_PREFIX}/lib/libCCfits.dylib  # [osx]
-    - test -d ${CONDA_PREFIX}/include/CCfits
+    - test -d ${CONDA_PREFIX}/include/CCfits  # [not win]
+    - test -f ${LIBRARY_PREFIX}/bin/CCfits-0.dll  # [win]
+    - test -f ${LIBRARY_PREFIX}/lib/ccfits.lib  # [win]
+    - test -d ${LIBRARY_PREFIX}/include/CCfits  # [win]
 
 about:
   summary: CCfits is an object oriented interface to the cfitsio library. It is designed to make the capabilities of cfitsio available to programmers working in C++. It is written in ANSI C++ and implemented using the C++ Standard Library with namespaces, exception handling, and member template functions.
