@@ -1,5 +1,7 @@
 c_compiler:
 - vs2022
+c_stdlib:
+- vs
 cfitsio:
 - 4.6.3
 channel_sources:
